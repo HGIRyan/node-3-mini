@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './HistoryModal.css';
+import axios from 'axios'
 
 export default class HistoryModal extends Component {
   constructor(props) {
@@ -8,7 +9,14 @@ export default class HistoryModal extends Component {
       historyMessages: []
     };
   }
-
+  componentDidMount(){
+    let promise = axios.get('/api/history')
+    promise.then((res)=>{
+      this.setState({
+        historyMessages: res.data
+      })
+    })
+  }
   render() {
     let historyMessages = this.state.historyMessages.map((messageObj, i) => {
       return (
